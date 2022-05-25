@@ -1,12 +1,4 @@
 const { User, Thought } = require('../models');
-const { ObjectId } = require('mongoose').mongo
-// getUsers,
-//   getSingleUser,
-//   createUser,
-//   updateUser,
-//   deleteUser,
-//   addFriend,
-//   removeFriend,
 
 module.exports = {
     getUsers(req, res) {
