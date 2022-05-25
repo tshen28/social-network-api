@@ -47,19 +47,19 @@ module.exports = {
             });
     },
     deleteUser(req, res) {
-        User.findOneAndRemove({ _id: req.params.userId })
+        User.findOneAndDelete({ _id: req.params.userId })
             .then((user) =>
                 !user
                     ? res.status(404).json({ message: 'No such user exists' })
                     : res.json({ message: 'User successfully deleted'})
             )
-            .then((friend) =>
-                !friend
-                    ? res.status(404).json({
-                        message: 'User deleted, but no friends found',
-                    })
-                    : res.json({ message: 'User successfully deleted' })
-            )
+            // .then((friend) =>
+            //     !friend
+            //         ? res.status(404).json({
+            //             message: 'User deleted, but no friends found',
+            //         })
+            //         : res.json({ message: 'User successfully deleted' })
+            // )
             .catch((err) => {
                 console.log(err);
                 res.status(500).json(err);
@@ -68,7 +68,7 @@ module.exports = {
     addFriend (req, res) {
         console.log('You are adding a friend');
         console.log(req.body);
-        User.findOneAndUpdate({ _id: req.params.userId}, { $addToSet: { friends: req.body}}, {runValidators: true, new: true})
+        User.findOneAndUpdate({ _id: req.params.userId}, { $addToSet: { friends: req.params.friendId}}, {runValidators: true, new: true})
         .then((user) => 
             !user
                 ? res.status(404).json({ message: 'No user found with that ID'})
